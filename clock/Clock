@@ -1,4 +1,4 @@
-package Clock;
+package clock;
 
 public class Clock {
 	private Display hour = new Display(24);
