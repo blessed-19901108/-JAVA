@@ -12,6 +12,7 @@ public class FoxAndRabbit {
   private View theView;
 
   public FoxAndRabbit(int size) {
+	  
 	//准备狐狸和兔子的数据
     theField = new Field(size, size);
     for (int row = 0; row < theField.getHeight(); row++) {
@@ -24,21 +25,22 @@ public class FoxAndRabbit {
         }
       }
     }
+    
     //准备一个窗口
     theView = new View(theField);
     JFrame frame = new JFrame();
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setResizable(false);
     frame.setTitle("Cells");
-    frame.add(theView);
-    frame.pack();
+    frame.add(theView);//JFrame是一个窗口,.add就是往窗口中加东西
+    frame.pack();//让它自己决定最合适窗口的大小
     frame.setVisible(true);
   }
   
   public void start(int steps) {
     for (int i = 0; i < steps; i++) {
       step();
-      theView.repaint();
+      theView.repaint();//View类中的方法repaint
       try {
         Thread.sleep(200);
       } catch (InterruptedException e) {
@@ -56,7 +58,7 @@ public class FoxAndRabbit {
   /**System.Threading.Thread.Sleep(2000)意思是将当前线程休眠2秒。
    * Thread.Sleep()方法用于将当前线程暂停一定时间，时间单位是毫秒，1000毫秒= 1秒*/
   
-	  /**e.printStackTrace();是打印异常的堆栈信息，指明错误原因，其实当发生异常时，
+  /**e.printStackTrace();是打印异常的堆栈信息，指明错误原因，其实当发生异常时，
    * 通常要处理异常，这是编程的好习惯，所以e.printStackTrace()可以方便你调试程序*/
 
   public void step() {
@@ -65,6 +67,8 @@ public class FoxAndRabbit {
         Cell cell = (Cell) theField.get(row, col);
         if (cell != null) {
           Animal animal = (Animal) cell;
+          /**看cell本身是什么对象,前面的(Cell) theField.get(row, col)已经确定了cell是狐狸或者兔子,
+           * 那么转成animal仍然是子类转成父类*/
           animal.grow();
           if (animal.isAlive()) {
             // *move
@@ -75,13 +79,16 @@ public class FoxAndRabbit {
             Cell[] neighbor = (Cell[]) theField.getNeighbor(row, col);
             ArrayList<Animal> listRabbit = new ArrayList<Animal>();
             for (Cell an : neighbor) {
+            	/**instanceof 是 Java 的一个二元操作符，类似于 ==，>，< 等操作符。
+            	 * instanceof 是 Java 的保留关键字。它的作用是测试它左边的对象是否是
+            	 * 它右边的类的实例，返回 boolean 的数据类型。*/
               if (an instanceof Rabbit) {
                 listRabbit.add((Rabbit) an);
               }
             }
             if (!listRabbit.isEmpty()) {
               Animal fed = animal.feed(listRabbit);
-              if (fed != null)
+              if (fed != null)/**代码扩展，feed方法可以改*/
                 theField.remove((Cell) fed);
             }
             // *breed
