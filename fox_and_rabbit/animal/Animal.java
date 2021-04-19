@@ -6,7 +6,7 @@ import field.Location;
 
 public abstract class Animal {
   private int ageLimit;
-  private int breedableAge;
+  private int breedableAge;//繁殖年龄
   private int age;
   private boolean isAlive = true;
 
@@ -42,7 +42,9 @@ public abstract class Animal {
   public boolean isBreedable() {
     return (age >= breedableAge);
   }
-
+  
+  /**Location是返回值*/
+  /**随机取一个位置;Math.random() * freeAdj.length确保所得的下标不会超过数组长度*/
   public Location move(Location[] freeAdj) {
     Location ret = null;
     if (freeAdj.length > 0 && Math.random() < 0.02) {
