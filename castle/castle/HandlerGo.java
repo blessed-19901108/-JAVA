@@ -8,15 +8,14 @@ public class HandlerGo extends Handler{
 	{
 		super(game);//从父类继承到了game对象 super()-->会去调用父类的的构造器
 	}
-	*/
-	
-	//有内部类时
-	public void doCmd(String word) {}
 	
 	@Override
 	public void doCmd(String word) {
 		game.goRoom(word);
 	}
-
-
+	*/
+	
+	//有内部类时
+	public void doCmd(String word) {}
+	
 }
