@@ -14,7 +14,14 @@ public class Game {
     {
     	handlers.put("bye", new HandlerBye(this));//把this传过去即把这个game对象传过去了，如果只有new HandlerBye()就会显示错误表示没有被定义，因为构造函数中有参数
     	handlers.put("help",new HandlerHelp(this));
-    	handlers.put("go", new HandlerGo(this));
+//     	handlers.put("go", new HandlerGo(this));
+	//匿名内部类,重构HandlerGo类doCmd()方法
+    	handlers.put("go", new HandlerGo(){
+			@Override
+			public void doCmd(String word) {
+				goRoom(word);
+			}
+    	});    
         createRooms();
     }
     
