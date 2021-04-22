@@ -12,7 +12,7 @@ public class HandlerBye extends Handler {
 	
 	//有内部类时
 	public void doCmd(String word) {}
-	}
+	
 	
 	@Override
 	public boolean isBye()
